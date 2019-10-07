@@ -8,6 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Echo test
+      run: echo $GITHUB_REF $GITHUB_SHA
     - name: Trigger Bitrise Build
       env:
         build_token: ${{ secrets.BITRISE_BUILD_TOKEN }}
