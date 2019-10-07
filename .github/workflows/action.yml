@@ -1,7 +1,7 @@
 name: Bitrise Build
 
 on:
-  pull_request_review_comment:
+  pull_request:
     types: [created, deleted]
 
 jobs:
@@ -17,5 +17,24 @@ jobs:
         branch: ${{ GITHUB_REF }}
     - name: Trigger Bitrise Build
       if: github.event.action == 'created' && github.event.comment.body = 'bitrise'
-      run: curl https://app.bitrise.io/app/$app_id/build/start.json --data 
-          '{"hook_info":{"type":"bitrise","build_trigger_token":"'$build_token'"},"build_params":{"branch":"'$branch'"},"triggered_by":"curl"}'
+      run: curl https://app.bitrise.io/app/$app_id/build/start.json --data '{"hook_info":{"type":"bitrise","build_trigger_token":"'$build_token'"},"build_params":{"branch":"'$branch'"},"triggered_by":"curl"}'
+
+
+
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
