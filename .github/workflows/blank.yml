@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Echo test
-      run: echo $GITHUB_REF $GITHUB_SHA
+      run: echo ${{ github.event.pull_request.head.ref }}
     - name: Trigger Bitrise Build
       env:
         build_token: ${{ secrets.BITRISE_BUILD_TOKEN }}
