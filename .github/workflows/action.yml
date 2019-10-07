@@ -18,4 +18,4 @@ jobs:
     - name: Trigger Bitrise Build
       if: github.event.action == 'created' && github.event.comment.body = 'bitrise'
       run: curl https://app.bitrise.io/app/$app_id/build/start.json --data 
-          '{"hook_info":{"type":"bitrise","build_trigger_token":"$build_token"},"build_params":{"branch":"$branch"},"triggered_by":"curl"}'
+          '{"hook_info":{"type":"bitrise","build_trigger_token":"'$build_token'"},"build_params":{"branch":"'$branch'"},"triggered_by":"curl"}'
