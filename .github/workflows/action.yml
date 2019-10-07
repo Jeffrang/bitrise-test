@@ -1,0 +1,21 @@
+name: Bitrise Build
+
+on:
+  pull_request_review_comment:
+    types: [created, deleted]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+      env:
+        build_token: ${{ secrets.BITRISE_BUILD_TOKEN }}
+        app_id: ${{ secrets.BITRISE_APP_ID }}
+        branch: ${{ GITHUB_REF }}
+    - name: Trigger Bitrise Build
+      if: github.event.action == 'created' && github.event.comment.body = 'bitrise'
+      run: curl https://app.bitrise.io/app/$app_id/build/start.json --data 
+          '{"hook_info":{"type":"bitrise","build_trigger_token":"$build_token"},"build_params":{"branch":"$branch"},"triggered_by":"curl"}'
